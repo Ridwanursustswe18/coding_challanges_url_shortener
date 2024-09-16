@@ -1,6 +1,7 @@
 const urls = require('../config');
 const hashKey = require('../hashKey');
 const checkIfKeyExistsInHashSet = require('../checkExistingKey');
+
 const shortenURL = async (req, res) => {
     try{
     const longUrl = req.body.url;
@@ -47,4 +48,24 @@ const shortenURL = async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
       }
     }
-module.exports = shortenURL;    
+const redirectToURL = async(req,res)=>{
+  try {
+      const key = req.params.url;
+      const urlExists = await urls.where('key','==', key).get();
+    if (urlExists.size == 0) {
+      return res.status(404).send('Short URL not found');
+    }
+
+    let longUrl = null;
+    urlExists.forEach((doc) => {
+      longUrl = doc.data().longUrl;
+    });
+    return res.status(302).set('Location', fullUrl).send();
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).send('Server error');
+  }
+
+}
+
+module.exports = {shortenURL,redirectToURL};    
