@@ -53,14 +53,14 @@ const redirectToURL = async(req,res)=>{
       const key = req.params.url;
       const urlExists = await urls.where('key','==', key).get();
     if (urlExists.size == 0) {
-      return res.status(404).send('Short URL not found');
+      return res.status(404).send('URL not found');
     }
 
     let longUrl = null;
     urlExists.forEach((doc) => {
       longUrl = doc.data().longUrl;
     });
-    return res.status(302).set('Location', fullUrl).send();
+    return res.status(302).set('Location', longUrl).send();
   } catch (error) {
     console.error('Error:', error);
     res.status(500).send('Server error');
