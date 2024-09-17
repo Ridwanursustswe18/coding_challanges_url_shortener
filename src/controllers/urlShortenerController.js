@@ -1,7 +1,6 @@
 const urls = require('../config');
 const hashKey = require('../hashKey');
 const checkIfKeyExistsInHashSet = require('../checkExistingKey');
-
 const shortenURL = async (req, res) => {
     try{
     const longUrl = req.body.url;
@@ -50,8 +49,8 @@ const shortenURL = async (req, res) => {
     }
 const redirectToURL = async(req,res)=>{
   try {
-      const key = req.params.url;
-      const urlExists = await urls.where('key','==', key).get();
+    const key = req.params.url;
+    const urlExists = await urls.where('key','==', key).get();
     if (urlExists.size == 0) {
       return res.status(404).send('URL not found');
     }
@@ -67,5 +66,23 @@ const redirectToURL = async(req,res)=>{
   }
 
 }
+const deleteUrl = async(req,res)=>{
+  try{
+    const key = req.url;
+    const querySnapshot = await urls.where('key', '==', key).get();
 
-module.exports = {shortenURL,redirectToURL};    
+    if (querySnapshot.empty) {
+      res.status(404).send('URL not found');
+      return; 
+    }
+    const doc = querySnapshot.docs[0];
+    await doc.ref.delete();
+    return res.status(200);
+
+  }catch (error) {
+    console.error('Error:', error);
+    res.status(500).send('Server error');
+  }
+}
+
+module.exports = {shortenURL,redirectToURL,deleteUrl};    
