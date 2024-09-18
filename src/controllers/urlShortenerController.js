@@ -59,7 +59,7 @@ const redirectToURL = async(req,res)=>{
     urlExists.forEach((doc) => {
       longUrl = doc.data().longUrl;
     });
-    return res.status(302).set('Location', longUrl).send();
+    return res.status(302).set('location', longUrl).send();
   } catch (error) {
     console.error('Error:', error);
     res.status(500).send('Server error');
@@ -68,16 +68,15 @@ const redirectToURL = async(req,res)=>{
 }
 const deleteUrl = async(req,res)=>{
   try{
-    const key = req.url;
+    const key = req.params.url;
     const querySnapshot = await urls.where('key', '==', key).get();
-
     if (querySnapshot.empty) {
       res.status(404).send('URL not found');
       return; 
     }
     const doc = querySnapshot.docs[0];
     await doc.ref.delete();
-    return res.status(200);
+    return res.status(200).send();
 
   }catch (error) {
     console.error('Error:', error);
