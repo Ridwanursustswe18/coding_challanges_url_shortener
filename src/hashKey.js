@@ -1,7 +1,9 @@
 const crypto = require('crypto');
 
 function generateFixedSizeKey(input) {
-    return crypto.createHash('sha256').update(input).digest('base64');
+    let hash = crypto.createHash('sha256').update(input).digest('base64');
+    hash = hash.replace(/\//g, '+');
+    return hash;
 }
 
 function getRandomInt(min, max) {
