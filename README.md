@@ -9,6 +9,6 @@
 - key is genrated by hashing the long url with 'sha-256' algorithm and encode in 'base64'. I also handled if a same key is genrated and i maintaned a hash-set to go through if a same key exists. If it exists then it is re-hashed again.
 - After that short-url given will re-direct to the actual website.
 - Stored url can also be deleted.
-- errors ar also handled for all cases.
+- errors are also handled for all cases.
 # technologies used
 - Javascript, node.js, express.js, firebase, nginx.   
