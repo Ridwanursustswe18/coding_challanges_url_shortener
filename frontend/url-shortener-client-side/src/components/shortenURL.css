@@ -38,11 +38,11 @@
     white-space: nowrap;
   }
 .button-23 {
-  background-color: #FFFFFF;
+  background-color: #2a5bd7;
   border: 1px solid #222222;
   border-radius: 8px;
   box-sizing: border-box;
-  color: #222222;
+  color: white;
   cursor: pointer;
   display: inline-block;
   font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
@@ -62,23 +62,6 @@
   width: auto;
 }
 
-.button-23:focus-visible {
-  box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
-  transition: box-shadow .2s;
-}
-
-.button-23:active {
-  background-color: #F7F7F7;
-  border-color: #000000;
-  transform: scale(.96);
-}
-
-.button-23:disabled {
-  border-color: #DDDDDD;
-  color: #DDDDDD;
-  cursor: not-allowed;
-  opacity: 1;
-}
 .shortened-url-wrapper {
     display: flex;
     align-items: center;

@@ -5,10 +5,15 @@ import './shortenURL.css';
 const URLShortener = () => {
   const [longUrl, setLongUrl] = useState('');
   const [shortUrl, setShortUrl] = useState('');
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
   const copyToClipboard = () => {
     navigator.clipboard.writeText(shortUrl);
-    alert('Shortened URL copied to clipboard!');
+    setIsPopupVisible(!isPopupVisible);
+    setTimeout(() => {
+      setIsPopupVisible(false);
+    }, 1000);
   };
+  
   const shortenUrl = async () => {
     try {
       const response = await fetch('http://localhost:3000/add-url', {
@@ -32,39 +37,59 @@ const URLShortener = () => {
   };
 
   return (
-    <div >
-      <h1 style={{fontFamily: 'sans-serif'}}>URL Shortener</h1>
-      <div className='input-button-wrapper'>
-      <input id='destination-url'
-      aria-label='Destination'
-      placeholder='https://example.com/my-long-url'
-      className ="input"
-      autoComplete='off'
-      maxLength="6144"
-      tabIndex="0"
-      data-test = "input-field"
-      onChange={(event) => setLongUrl(event.target.value)}
-      value={longUrl}>
-      </input>
-      <button  className = "button-23"onClick={shortenUrl}>shorten</button>
-      </div>
-      {shortUrl && (
-        <div className="shortened-url-wrapper">
+    <div
+      style={{
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center',
+        padding: '6rem',
+      }}
+    >
+      <div>
+        <h1 style={{ fontFamily: 'sans-serif', textAlign: 'center' }}>URL Shortener</h1>
+        <div className="input-button-wrapper" style={{ display: 'flex', justifyContent: 'center', gap: '2em' }}>
           <input
-            id='shortened-url'
-            aria-label='Shortened URL'
-            className="input with-icon"
-            autoComplete='off'
+            id="destination-url"
+            aria-label="Destination"
+            placeholder="https://example.com/my-long-url"
+            className="input"
+            autoComplete="off"
             maxLength="6144"
-            data-test="shortened-url-field"
-            value={shortUrl}
-            readOnly
+            tabIndex="0"
+            data-test="input-field"
+            onChange={(event) => setLongUrl(event.target.value)}
+            value={longUrl}
           />
-          <button className="copy-button" onClick={copyToClipboard}>
-           <FontAwesomeIcon icon={faCopy} size="small" />
+          <button className="button-23" onClick={shortenUrl}>
+            shorten
           </button>
+        </div>
+        {shortUrl && (
+          <div className="shortened-url-wrapper" style={{ display: 'flex', justifyContent: 'center', marginTop: '2em' }}>
+            <input
+              id="shortened-url"
+              aria-label="Shortened URL"
+              className="input with-icon"
+              autoComplete="off"
+              maxLength="6144"
+              data-test="shortened-url-field"
+              value={shortUrl}
+              readOnly
+              style={{ flexGrow: 1, paddingRight: '3em' }} 
+            />
+            <button className="copy-button" onClick={copyToClipboard}>
+              <FontAwesomeIcon icon={faCopy} size="lg" />
+            </button>
+            {isPopupVisible && (
+              <div 
+              id="myPopup" 
+              className="absolute z-10 p-4 bg-white border border-gray-200 rounded shadow-lg mt-2 "
+            >
+             link copied to clipboard 
+              </div>)}
           </div>
-           )}
+        )}
+      </div>
     </div>
   );
 }
