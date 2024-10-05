@@ -1,4 +1,13 @@
 {
+  "name": "url-shortener",
+  "version": "1.0.0",
+  "main": "app.js",
+  "engines": {
+    "node": "18.x"
+  },
+  "scripts": {
+    "start": "node app.js"
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.19.2",
