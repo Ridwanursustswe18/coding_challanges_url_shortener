@@ -8,16 +8,6 @@
     ],
     "routes": [
       {
-        "src": "/add-url",
-        "methods": ["POST"],
-        "dest": "app.js"
-      },
-      {
-        "src": "/(.*)",
-        "methods": ["GET", "DELETE"],
-        "dest": "app.js"
-      },
-      {
         "src": "/(.*)",
         "dest": "app.js"
       }
