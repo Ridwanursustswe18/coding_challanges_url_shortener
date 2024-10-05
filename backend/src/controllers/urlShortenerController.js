@@ -20,6 +20,7 @@ const shortenURL = async (req, res) => {
       return;
     }
     let key = hashKey(longUrl,5);
+    const shortUrl = 'http://localhost/';
   checkIfKeyExistsInHashSet('urls', 'key', key)
       .then(async keyExists => {
           if (keyExists) {
@@ -30,13 +31,13 @@ const shortenURL = async (req, res) => {
           await urls.add({
               key: key,
               longUrl: longUrl,
-              shortUrl: `http://localhost/${key}`
+              shortUrl: shortUrl + key
           });
   
           res.status(201).json({
               key: key,
               long_url: longUrl,
-              short_url: `http://localhost/${key}`
+              short_url: shortUrl + key
           });
       })
       .catch(error => {
