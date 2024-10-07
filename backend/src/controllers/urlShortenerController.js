@@ -20,7 +20,8 @@ const shortenURL = async (req, res) => {
       return;
     }
     let key = hashKey(longUrl,5);
-    const shortUrl = 'http://localhost/';
+    // const shortUrl = 'http://localhost/';
+    const shortUrl = 'https://url-shrinker.up.railway.app/'
   checkIfKeyExistsInHashSet('urls', 'key', key)
       .then(async keyExists => {
           if (keyExists) {
