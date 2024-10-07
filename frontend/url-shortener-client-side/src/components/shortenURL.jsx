@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import './shortenURL.css';
+
 const URLShortener = () => {
   const [longUrl, setLongUrl] = useState('');
   const [shortUrl, setShortUrl] = useState('');
@@ -16,7 +17,8 @@ const URLShortener = () => {
   
   const shortenUrl = async () => {
     try {
-      const response = await fetch('http://localhost:3000/add-url', {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+      const response = await fetch(`${API_URL}/add-url`, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
