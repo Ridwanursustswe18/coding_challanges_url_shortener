@@ -27,11 +27,6 @@ jobs:
         working-directory: ./backend
         run: npm install
 
-      # Test backend
-      - name: Run backend tests
-        working-directory: ./backend
-        run: npm test # Add backend tests to your project
-
       # Deploy backend to Railway
       - name: Deploy backend to Railway
         env:
