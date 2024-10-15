@@ -28,7 +28,7 @@ jobs:
 
       # Install backend dependencies
       - name: Install backend dependencies
-        working-directory: ./backend
+        working-directory: ./backend/src
         run: npm install
 
       # Deploy backend to Railway
