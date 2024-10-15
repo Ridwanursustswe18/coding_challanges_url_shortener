@@ -22,9 +22,9 @@ jobs:
         with:
           node-version: '18'  # Use Node.js version 18 (ensure it aligns with your local environment)
 
-      # Install Railway CLI (required for deploying to Railway)
+      # Install new Railway CLI from @railway/cli
       - name: Install Railway CLI
-        run: npm install -g railway
+        run: npm install -g @railway/cli
 
       # Install backend dependencies
       - name: Install backend dependencies
