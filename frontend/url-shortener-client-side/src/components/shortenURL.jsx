@@ -48,7 +48,7 @@ const URLShortener = () => {
       }}
     >
       <div>
-        <h1 style={{ fontFamily: 'sans-serif', textAlign: 'center' }}>URL Shortener</h1>
+        <h1 style={{ fontFamily: 'sans-serif', textAlign: 'center' }}> shorten your url easily </h1>
         <div className="input-button-wrapper" style={{ display: 'flex', justifyContent: 'center', gap: '2em' }}>
           <input
             id="destination-url"
