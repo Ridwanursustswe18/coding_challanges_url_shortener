@@ -20,9 +20,13 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18' # Use Node.js version 18 (align with your local environment)
+          node-version: '18'  # Use Node.js version 18 (ensure it aligns with your local environment)
 
-      # Install dependencies
+      # Install Railway CLI (required for deploying to Railway)
+      - name: Install Railway CLI
+        run: npm install -g railway
+
+      # Install backend dependencies
       - name: Install backend dependencies
         working-directory: ./backend
         run: npm install
@@ -32,11 +36,12 @@ jobs:
         env:
           RAILWAY_TOKEN: ${{ secrets.BACKEND_TOKEN }}  # Store Railway token in GitHub secrets
         run: |
-          railway up --service url-shortener-backend 
+          railway up --service url-shortener-backend
+
   frontend:
     name: Frontend CI/CD
     runs-on: ubuntu-latest
-    needs: backend  # Ensure backend builds before frontend starts
+    needs: backend  # Ensure backend builds and deploys before the frontend starts
 
     steps:
       # Checkout code
@@ -47,7 +52,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '18'  # Ensure Node.js version aligns with frontend requirements
 
       # Install frontend dependencies
       - name: Install frontend dependencies
@@ -59,7 +64,7 @@ jobs:
         working-directory: ./frontend/url-shortener-client-side
         run: npm run build
 
-      # Deploy frontend (e.g., to Vercel or Netlify)
+      # Deploy frontend to Vercel
       - name: Deploy frontend to Vercel
         env:
           VERCEL_TOKEN: ${{ secrets.URL_SHORTENER_FRONTEND_TOKEN }}  # Store Vercel token in GitHub secrets
