@@ -30,13 +30,25 @@ jobs:
       - name: Install backend dependencies
         working-directory: ./backend/src
         run: npm install
+      - name: Create railway.toml
+        working-directory: ./backend/src
+        run: |
+          echo '[build]
+          builder = "nixpacks"
+          buildCommand = "npm install"
+
+          [deploy]
+          startCommand = "npm start"
+          restartPolicyType = "ON_FAILURE"
+          healthcheckPath = "/"
+          healthcheckTimeout = 100' > railway.toml  
 
       # Deploy backend to Railway
       - name: Deploy backend to Railway
         env:
           RAILWAY_TOKEN: ${{ secrets.BACKEND_TOKEN }}  # Store Railway token in GitHub secrets
         run: |
-          railway up --service url-shortener-backend --command "node ./backend/src/app.js"
+          railway up --service url-shortener-backend
 
   frontend:
     name: Frontend CI/CD
