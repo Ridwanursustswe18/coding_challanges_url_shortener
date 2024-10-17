@@ -29,11 +29,10 @@ jobs:
       # Install new Railway CLI from @railway/cli
       - name: Install Railway CLI
         run: npm install -g @railway/cli
-      # Deploy backend to Railway
       - name: Deploy backend to Railway
-        run: railway up
         env:
-          RAILWAY_TOKEN: ${{ secrets.BACKEND_TOKEN }}  # Store Railway token in GitHub secrets
+          RAILWAY_TOKEN: ${{ secrets.BACKEND_TOKEN }}
+        run: railway up --service url-shortener-backend
 
   frontend:
     name: Frontend CI/CD
