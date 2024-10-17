@@ -32,7 +32,9 @@ jobs:
       - name: Deploy backend to Railway
         env:
           RAILWAY_TOKEN: ${{ secrets.BACKEND_TOKEN }}
-        run: railway up --service url-shortener-backend
+        run: |
+          cd ./backend/src
+          railway up --service url-shortener-backend
 
   frontend:
     name: Frontend CI/CD
