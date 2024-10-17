@@ -30,19 +30,10 @@ jobs:
       - name: Install backend dependencies
         working-directory: ./backend/src
         run: npm install
-      - name: Create railway.toml
+      - name: Update package.json with start script
         working-directory: ./backend/src
         run: |
-          echo '[build]
-          builder = "nixpacks"
-          buildCommand = "npm install"
-
-          [deploy]
-          startCommand = "npm start"
-          restartPolicyType = "ON_FAILURE"
-          healthcheckPath = "/"
-          healthcheckTimeout = 100' > railway.toml  
-
+          jq '.scripts.start = "node app.js"' package.json > temp.json && mv temp.json package.json
       # Deploy backend to Railway
       - name: Deploy backend to Railway
         env:
