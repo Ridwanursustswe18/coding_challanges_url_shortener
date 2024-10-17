@@ -22,24 +22,18 @@ jobs:
         with:
           node-version: '18'  # Use Node.js version 18 (ensure it aligns with your local environment)
 
-      # Install new Railway CLI from @railway/cli
-      - name: Install Railway CLI
-        run: npm install -g @railway/cli
-
       # Install backend dependencies
       - name: Install backend dependencies
         working-directory: ./backend/src
-        run: npm install
-      - name: Update package.json with start script
-        working-directory: ./backend/src
-        run: |
-          jq '.scripts.start = "node app.js"' package.json > temp.json && mv temp.json package.json
+        run: npm install --frozen-lockfile
+      # Install new Railway CLI from @railway/cli
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli
       # Deploy backend to Railway
       - name: Deploy backend to Railway
+        run: railway up
         env:
           RAILWAY_TOKEN: ${{ secrets.BACKEND_TOKEN }}  # Store Railway token in GitHub secrets
-        run: |
-          railway up --service url-shortener-backend
 
   frontend:
     name: Frontend CI/CD
