@@ -36,7 +36,7 @@ jobs:
         env:
           RAILWAY_TOKEN: ${{ secrets.BACKEND_TOKEN }}  # Store Railway token in GitHub secrets
         run: |
-          railway up --service url-shortener-backend
+          railway up --service url-shortener-backend --command "node ./backend/src/app.js"
 
   frontend:
     name: Frontend CI/CD
